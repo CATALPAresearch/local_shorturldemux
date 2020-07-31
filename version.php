@@ -12,7 +12,7 @@
     defined('MOODLE_INTERNAL') || die();
     
     $plugin->component = 'local_cassign';
-    $plugin->version = 2020060318;
+    $plugin->version = 2020060320;
     $plugin->requires = 2017050500;    
 
 ?>
