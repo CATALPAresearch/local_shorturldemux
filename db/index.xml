@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="course/local/cassign/db" VERSION="20120122" COMMENT="XMLDB file for the cassign plugin"
+<XMLDB PATH="local/cassign/db" VERSION="20200731" COMMENT="XMLDB file for the cassign plugin"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
