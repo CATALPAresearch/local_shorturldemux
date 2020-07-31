@@ -11,7 +11,7 @@
         if(!isset($_GET['c']) && !isset($_GET['s'])) throw new Exception("No shortener or course specified.");
         if(isset($_GET['c'])){        
             $course = $DB->get_records_sql('SELECT c.course_id, c.path FROM '.$CFG->prefix.'cassign_courses AS c LEFT JOIN 
-            '.$CFG->prefix.'cassign_shorts AS s ON s.id = c.short_id WHERE s.short = ?', array(strtolower($_GET['c'])));
+            '.$CFG->prefix.'cassign_shorts AS s ON s.id = c.short_id WHERE s.short = ?', array(strtolower((string)$_GET['c'])));
             if(!is_array($course) || count($course) < 1) throw new Exception("No course found.");
             $mc = enrol_get_my_courses();      
             if(!is_array($mc) || count($mc) < 1) throw new Exception("No enrolled course found.");
@@ -37,8 +37,16 @@
             echo "Redirect to: ".$found->path;         
             $url = new moodle_url($found->path);           
         } else {            
-            $link = $DB->get_records_sql('SELECT extern, link FROM '.$CFG->prefix.'cassign_links WHERE id = ? LIMIT 1', array($_GET['s']));
-            var_dump($link);
+            $link = $DB->get_records_sql('SELECT extern, link FROM '.$CFG->prefix.'cassign_links WHERE short = ? LIMIT 1', array(strtolower((string)$_GET['s'])));
+            if(!is_array($link) || count($link) < 1) throw new Exception("Link not found.");            
+            $link = array_shift($link);            
+            if(+$link->extern === 1){
+                echo "Redirect to: ".$link->link;
+                header("Location: ".$link->link);
+                die();
+            }                      
+            $url = new moodle_url($link->link);
+            echo "Redirect to: ".$link->link;           
         }       
     } catch(Exception $ex){
         echo $ex->getMessage();

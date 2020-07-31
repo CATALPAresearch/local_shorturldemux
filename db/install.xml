@@ -28,7 +28,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="short" TYPE="text" LENGTH="50" NOTNULL="true" SEQUENCE="false" />
-        <FIELD NAME="extern" TYPE="text" LENGTH="1" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extern" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="link" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
