@@ -27,7 +27,7 @@
     <TABLE NAME="cassign_links" COMMENT="Collection of links.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="extern" TYPE="binary" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extern" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="link" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
