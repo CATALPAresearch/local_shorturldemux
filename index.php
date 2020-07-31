@@ -8,23 +8,13 @@
         require_login();
         if(!isset($USER->id)) throw new Exception("User id not found.");
         if(!isset($_GET['c']) && !isset($_GET['s'])) throw new Exception("No shortener or course specified.");
-        if(isset($_GET['c'])){
-            $mc = enrol_get_my_courses();
+        if(isset($_GET['c'])){        
+            $course = $DB->get_records_sql('SELECT c.course_id, c.course_start, c.path FROM '.$CFG->prefix.'cassign_courses AS c LEFT JOIN 
+            '.$CFG->prefix.'cassign_shorts AS s ON s.id = c.short_id WHERE s.short = ?', array($_GET['c']));
+            if(!is_array($course) || count($course) <= 0) throw new Exception("No course found.");
+            $mc = enrol_get_my_courses();        
 
-            $sql = '
-                SELECT c.course_id, c.course_start, c.path 
-                FROM '.$CFG->prefix.'cassign_courses AS c 
-                LEFT JOIN '.$CFG->prefix.'cassign_shorts AS s
-                ON s.id = c.short_id
-                WHERE s.short_id = ?
-                ';
-
-            //$short = $DB->get_records_sql();
-
-
-
-
-            echo $sql;
+            var_dump($course);
             /*$course = $_GET['c'];
             $uid = $USER->id;     
             
@@ -37,7 +27,8 @@
             $short = $_GET['s'];
         }       
     } catch(Exception $ex){ 
-        $url = new moodle_url('/');
-        redirect($url);
+        var_dump($ex);
+        //$url = new moodle_url('/');
+        //redirect($url);
     }
 ?>
