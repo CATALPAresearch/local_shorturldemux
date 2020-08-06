@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="shorturldemux_shorts" COMMENT="List of shorts.">
+    <!--<TABLE NAME="shorturldemux_shorts" COMMENT="List of shorts.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="short" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
@@ -12,7 +12,7 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
-    </TABLE>
+    </TABLE>-->
     <TABLE NAME="shorturldemux_courses" COMMENT="List of all courses.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
