@@ -22,15 +22,18 @@ course_id:
 path: path within moodle leading to the shortURL target
 
 CSV
-`short,course_id,path
+```
+short,course_id,path
 1801-klasse-a-hosts,2,'/mod/quiz/view.php?id=155'
 1801-klasse-a-hosts,5,'/mod/quiz/view.php?id=239'
-`
+```
+
 SQL:
-`INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',2,'/mod/quiz/view.php?id=155');
+```
+INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',2,'/mod/quiz/view.php?id=155');
 
 INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',5,'/mod/quiz/view.php?id=239');
-
+```
 
 # Authors
 Marc Burchart 
