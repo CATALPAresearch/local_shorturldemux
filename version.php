@@ -11,7 +11,7 @@
  
     defined('MOODLE_INTERNAL') || die();
     
-    $plugin->component = 'local_cassign';
+    $plugin->component = 'local_shorturldemux';
     $plugin->version = 2020060322;
     $plugin->requires = 2017050500;    
 

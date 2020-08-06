@@ -1,5 +1,5 @@
 <?php
 
-function xmldb_local_cassign_install() {
+function xmldb_local_shorturldemux_install() {
     return true;
 }

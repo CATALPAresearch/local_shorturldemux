@@ -3,7 +3,7 @@
     $context = context_system::instance();
     global $USER, $PAGE, $DB;
     $PAGE->set_context($context);  
-    $PAGE->set_url($CFG->wwwroot.'/local/short/index.php');   
+    $PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/index.php');   
     $url = new moodle_url('/');
     try{        
         require_login();
@@ -12,7 +12,7 @@
         if(isset($_GET['c'])){        
             $course = $DB->get_records_sql('
                 SELECT c.course_id, c.path 
-                FROM '.$CFG->prefix.'cassign_courses AS c 
+                FROM '.$CFG->prefix.'shorturldemux_courses AS c 
                 WHERE c.short = ?', 
                 array(strtolower((string)$_GET['c'])));
             if(!is_array($course) || count($course) < 1) throw new Exception("No course found.");
@@ -40,7 +40,7 @@
             echo "Redirect to: ".$found->path;         
             $url = new moodle_url($found->path);           
         } else {            
-            $link = $DB->get_records_sql('SELECT extern, link FROM '.$CFG->prefix.'cassign_links WHERE short = ? LIMIT 1', array(strtolower((string)$_GET['s'])));
+            $link = $DB->get_records_sql('SELECT extern, link FROM '.$CFG->prefix.'shorturldemux_links WHERE short = ? LIMIT 1', array(strtolower((string)$_GET['s'])));
             if(!is_array($link) || count($link) < 1) throw new Exception("Link not found.");            
             $link = array_shift($link);            
             if(+$link->extern === 1){
