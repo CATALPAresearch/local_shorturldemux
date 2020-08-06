@@ -36,6 +36,7 @@ INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-kla
 ```
 
 # Authors
+
 Marc Burchart 
 Niels Seidel
-`
+
