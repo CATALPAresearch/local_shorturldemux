@@ -9,7 +9,10 @@
         require_login();
         if(!isset($USER->id)) throw new Exception("User id not found.");
         if(!isset($_GET['c']) && !isset($_GET['s'])) throw new Exception("No shortener or course specified.");
-        if(isset($_GET['c'])){        
+        if(isset($_GET['c'])){
+            if( is_string($_GET['c']) == false || strlen($_GET['c']) > 200){
+                exit;
+            }   
             $course = $DB->get_records_sql('
                 SELECT c.course_id, c.path 
                 FROM '.$CFG->prefix.'shorturldemux_courses AS c 
@@ -37,9 +40,12 @@
                 }
             }
             if(is_null($found)) throw new Exception("No matched course found.");  
-            echo "Redirect to: ".$found->path;         
-            $url = new moodle_url($found->path);           
-        } else {            
+            // echo "c Redirect to: ".$found->path;         
+            $url = new moodle_url($found->path);
+            header('Location: '.$url);
+           
+        } /* Not tested
+        else {            
             $link = $DB->get_records_sql('SELECT extern, link FROM '.$CFG->prefix.'shorturldemux_links WHERE short = ? LIMIT 1', array(strtolower((string)$_GET['s'])));
             if(!is_array($link) || count($link) < 1) throw new Exception("Link not found.");            
             $link = array_shift($link);            
@@ -50,10 +56,13 @@
             }                      
             $url = new moodle_url($link->link);
             echo "Redirect to: ".$link->link;           
-        }       
+        }   */    
     } catch(Exception $ex){
         echo $ex->getMessage();
+        exit;
     }
     //var_dump($url);
     //redirect($url);
+    
+
 ?>

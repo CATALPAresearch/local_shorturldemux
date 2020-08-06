@@ -1,39 +1,31 @@
 # Short-url demux
-local_shorturldemux is a small moodle plugin to set short url or to handle multiple course enrollments on the same course.
+local_shorturldemux is a small moodle plugin to set short url or to handle multiple course enrollments on the same course. When requesting a short-url identifier the plugin determines the the corresponding course and forwards the request to the corresponding course activity.
+
+Through this plugin short-urls can stay unchaged over several courses or semesters. In case a learner enrolled to two courses that share the same short-url the student request will be forwarded to the most recent course and course activity.
+
+## TODO
+* Improve sanitization: https://www.php.net/manual/de/filter.filters.sanitize.php
+* provide form the manage Short-URL and its redirect targets
 
 ## Setup and usage
 
-`<your-moodle-path>/local/cassign/index.php?c=<short-url>`
+`<your-moodle-path>/local/shorturldemux/index.php?c=<short-url>`
 
-127.0.0.1/moodle/local/cassign/index.php?c=1801-unterbrechungsvektor
+https://aple.fernuni-hagen.de/local/shorturldemux/index.php?c=1801-unterbrechungsvektor
 
-**Table cassign_courses**
+**Table shorturldemux_courses**
 id	
-short_id: id of shortURL stored in table cassign_shorts
+short_id: id of shortURL stored in table shorturldemux_shorts
 course_id: 
 path: path within moodle leading to the shortURL target
 
-short_id,course_id,path
-1,2,'/mod/quiz/view.php?id=260'
-2,2,'/mod/quiz/view.php?id=261'
+CSV
+`short,course_id,path
+1801-klasse-a-hosts,2,'/mod/quiz/view.php?id=155'
+1801-klasse-a-hosts,5,'/mod/quiz/view.php?id=239'
+`
+SQL:
+`INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',2,'/mod/quiz/view.php?id=155');
 
-INSERT INTO moodlecassign_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',2,'/mod/quiz/view.php?id=239');
-
-
-**Table cassign_shorts**
-id: index
-short: Short URL
-
-id,short
-1,1801-schichtenmodell
-2,1801-instruktionszyklus
-
-INSERT INTO moodlecassign_shorts (id,short) VALUES (1,'1801-schichtenmodell');
-INSERT INTO moodlecassign_shorts (id,short) VALUES (2,'1801-instruktionszyklus');
-
-
-**(optional) Table cassign_links**
-id
-short
-extern
-link
+INSERT INTO moodleshorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',5,'/mod/quiz/view.php?id=239');
+`
