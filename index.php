@@ -10,8 +10,11 @@
         if(!isset($USER->id)) throw new Exception("User id not found.");
         if(!isset($_GET['c']) && !isset($_GET['s'])) throw new Exception("No shortener or course specified.");
         if(isset($_GET['c'])){        
-            $course = $DB->get_records_sql('SELECT c.course_id, c.path FROM '.$CFG->prefix.'cassign_courses AS c LEFT JOIN 
-            '.$CFG->prefix.'cassign_shorts AS s ON s.id = c.short_id WHERE s.short = ?', array(strtolower((string)$_GET['c'])));
+            $course = $DB->get_records_sql('
+                SELECT c.course_id, c.path 
+                FROM '.$CFG->prefix.'cassign_courses AS c 
+                WHERE c.short = ?', 
+                array(strtolower((string)$_GET['c'])));
             if(!is_array($course) || count($course) < 1) throw new Exception("No course found.");
             $mc = enrol_get_my_courses();      
             if(!is_array($mc) || count($mc) < 1) throw new Exception("No enrolled course found.");
