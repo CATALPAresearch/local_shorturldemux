@@ -1,5 +1,5 @@
 <?php
 
-    $string['pluginname'] = "course assign";
+    $string['pluginname'] = "Short-URL Demultiplexer";
 
 ?>
