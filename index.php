@@ -1,4 +1,8 @@
 <?php
+/**
+ * TODO
+ * - The URL parameter s and c need to become more self explaining. For some reason we mixed them up so that c is used for the shortener string, instead for the course id.
+ */
     require_once(dirname(__FILE__) . '/../../config.php');   
     $context = context_system::instance();
     global $USER, $PAGE, $DB;
@@ -16,8 +20,8 @@
             $course = $DB->get_records_sql('
                 SELECT c.course_id, c.path 
                 FROM '.$CFG->prefix.'shorturldemux_courses AS c 
-                WHERE c.short = ?', 
-                array(strtolower((string)$_GET['c'])));
+                WHERE c.short = ?', //  AND c.course_id = ? 
+                array(strtolower($_GET['c'])));// (string)$_GET['s']), 
             if(!is_array($course) || count($course) < 1) throw new Exception("No course found.");
             $mc = enrol_get_my_courses();      
             if(!is_array($mc) || count($mc) < 1) throw new Exception("No enrolled course found.");
