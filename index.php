@@ -16,8 +16,10 @@ require_once dirname(__FILE__) . '/../../config.php';
 $context = context_system::instance();
 global $USER, $PAGE, $DB;
 $PAGE->set_context($context);  
-$PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/index.php');   
-$PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/index.php', array('c' => $_GET['c'])); 
+$PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/index.php');
+if (!isset($_GET['c'])) {   
+    $PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/index.php', array('c' => $_GET['c'])); 
+}
 
 $url = new moodle_url('/');
 try{        
