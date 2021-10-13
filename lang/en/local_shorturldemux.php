@@ -1,5 +1,4 @@
 <?php
-
 $string['pluginname'] = "Short-URL Demultiplexer";
 $string['no_course_found'] = "No such course found.";
 $string['no_course_enrolled'] = "No enrolled course found.";
