@@ -147,7 +147,7 @@ INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-count2i
 /*
 WS 2022/23
 */
-INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-schichtenmodell',24,'/mod/quiz/view.php?id=xxx');
+-- INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-schichtenmodell',24,'/mod/quiz/view.php?id=xxx');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-instruktionszyklus',24,'/mod/quiz/view.php?id=1090');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-binaerdarstellung',24,'/mod/quiz/view.php?id=1091');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-addressbusbreite',24,'/mod/quiz/view.php?id=1092');
@@ -156,7 +156,7 @@ INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-platten
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-speicherformen-zugriffszeit',24,'/mod/quiz/view.php?id=1095');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-unterbrechungen-abfragebetrieb',24,'/mod/quiz/view.php?id=1096');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-sperrung-unterbrechungseingang',24,'/mod/quiz/view.php?id=1097');
-INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-priorisierte-unterbrechungen',24,'/mod/quiz/view.php?id=xxx');
+-- INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-priorisierte-unterbrechungen',24,'/mod/quiz/view.php?id=xxx');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-dma',24,'/mod/quiz/view.php?id=1098');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-return-from-interrupt',24,'/mod/quiz/view.php?id=1099');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-moduswechsel',24,'/mod/quiz/view.php?id=1100');
