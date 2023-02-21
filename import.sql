@@ -215,3 +215,77 @@ INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-distanz
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',24,'/mod/quiz/view.php?id=1190');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-teilnetzwerke',24,'/mod/quiz/view.php?id=1191');
 INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-count2infinity',24,'/mod/quiz/view.php?id=1192');
+
+
+/*
+WS 2022/23 Update for mod_safran
+*/
+
+-- INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-schichtenmodell',24,'/mod/quiz/view.php?id=xxx');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-instruktionszyklus',24,'/mod/quiz/view.php?id=1090');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-binaerdarstellung',24,'/mod/safran/view.php/1347/task/1');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-addressbusbreite',24,'/mod/safran/view.php/1347/task/2');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-caching',24,'/mod/safran/view.php/1347/task/3');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-plattenzugriff',24,'/mod/safran/view.php/1347/task/4');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-speicherformen-zugriffszeit',24,'/mod/quiz/view.php?id=1095'); 
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-unterbrechungen-abfragebetrieb',24,'/mod/safran/view.php/1347/task/5');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-sperrung-unterbrechungseingang',24,'/mod/quiz/view.php?id=1097'); 
+-- INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-priorisierte-unterbrechungen',24,'/mod/quiz/view.php?id=xxx');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-dma',24,'/mod/quiz/view.php?id=1098');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-return-from-interrupt',24,'/mod/quiz/view.php?id=1099');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-moduswechsel',24,'/mod/quiz/view.php?id=1100');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-unterbrechungsvektor',24,'/mod/safran/view.php/1347/task/6');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-maskieren-privilegiert',24,'/mod/quiz/view.php?id=1102');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-scheduling',24,'/mod/quiz/view.php?id=1103');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-sjf-wartezeit',24,'/mod/safran/view.php/1347/task/7');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-sjf-probleme',24,'/mod/safran/view.php/1347/task/8');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-timer',24,'/mod/safran/view.php/1347/task/9');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-zeitscheiben',24,'/mod/quiz/view.php?id=1107');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-adressumrechung',24,'/mod/safran/view.php/1347/task/10');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-systempuffer',24,'/mod/quiz/view.php?id=1109');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-segmentierung',24,'/mod/quiz/view.php?id=1110');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-pfadlaenge',24,'/mod/quiz/view.php?id=1111');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-seitenzahl',24,'/mod/safran/view.php/1350/task/11');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-seitentabelle-prozesskontext',24,'/mod/quiz/view.php?id=1126');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-cache-seitentabelle',24,'/mod/safran/view.php/1350/task/12');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-seitengroesse',24,'/mod/quiz/view.php?id=1128');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-logischer-adressraum',24,'/mod/quiz/view.php?id=1129');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-paging-info',24,'/mod/safran/view.php/1350/task/13');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-anwendungen-threads',24,'/mod/safran/view.php/1350/task/14');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-threads-implementierung',24,'/mod/quiz/view.php?id=1132');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-cpu-threads',24,'/mod/safran/view.php/1350/task/15');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-kritischer-abschnitt',24,'/mod/safran/view.php/1350/task/16');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-semaphore',24,'/mod/safran/view.php/1350/task/17');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-up-down',24,'/mod/safran/view.php/1350/task/18');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-blockade',24,'/mod/quiz/view.php?id=1137');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-blockgroesse',24,'/mod/safran/view.php/1350/task/19');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-zugriffsrechte-gruppe',24,'/mod/quiz/view.php?id=1139');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-chmod',24,'/mod/quiz/view.php?id=1140');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-edit-recht',24,'/mod/quiz/view.php?id=1141');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-fat-platzbedarf',24,'/mod/safran/view.php/1350/task/20');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-inode-blockzahl',24,'/mod/quiz/view.php?id=1143');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-paketvermitteltes-netz',24,'/mod/safran/view.php/1351/task/21');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-ende-zu-ende-verzoegerung',24,'/mod/safran/view.php/1351/task/22');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-client-server',24,'/mod/safran/view.php/1351/task/23');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-url',24,'/mod/safran/view.php/1351/task/24');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-domain-name',24,'/mod/safran/view.php/1351/task/25');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-anonymitaet',24,'/mod/safran/view.php/1351/task/26');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-imap-versus-pop3',24,'/mod/quiz/view.php?id=1163');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-ip-lookup',24,'/mod/safran/view.php/1351/task/27');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-router-aufgaben',24,'/mod/safran/view.php/1351/task/28');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-udp',24,'/mod/safran/view.php/1351/task/29');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-checksum',24,'/mod/quiz/view.php?id=1167');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-zuverlaessige-datenuebertragung',24,'/mod/safran/view.php/1351/task/30');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-modifikation-alternating-bit',24,'/mod/safran/view.php/1351/task/31');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-3-wege-handshake',24,'/mod/quiz/view.php?id=1170');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-sequenznummern',24,'/mod/safran/view.php/1351/task/32');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-latecomer',24,'/mod/safran/view.php/1351/task/33');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-fast-retransmit',24,'/mod/safran/view.php/1351/task/34');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-nachrichtenverluste-udp',24,'/mod/safran/view.php/1351/task/35');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-best-effort',24,'/mod/safran/view.php/1374/task/36');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-billigster-pfad-1',24,'/mod/quiz/view.php?id=1187');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-billigster-pfad-2',24,'/mod/safran/view.php/1374/task/37');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-distanztabelle',24,'/mod/safran/view.php/1374/task/38');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-klasse-a-hosts',24,'/mod/safran/view.php/1374/task/39');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-teilnetzwerke',24,'/mod/safran/view.php/1374/task/40');
+INSERT INTO m_shorturldemux_courses (short,course_id,path) VALUES ('1801-count2infinity',24,'/mod/safran/view.php/1374/task/41');

@@ -13,6 +13,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../config.php';   
+
 $context = context_system::instance();
 global $USER, $PAGE, $DB;
 $PAGE->set_context($context);  
@@ -22,12 +23,27 @@ if (!isset($_GET['c'])) {
 }
 
 $url = new moodle_url('/');
+
+// Store the requested URL in a coockie to make the redirect happen after the login was successful
+if(!isset($_SESSION['shorturlredirect']) && isset($_GET['c'])){
+    $_SESSION['shorturlredirect'] = '/local/shorturldemux/index.php?c=' . $_GET['c'];
+}
+
+require_login();
+
+
 try{        
-    require_login();
+    
+    // redirect to the URL stored in the cockie if the parameterc is not set
+    if(isset($_SESSION['shorturlredirect']) && !isset($_GET['c'])){
+        $url = new moodle_url($_SESSION['shorturlredirect']);
+        unset($_SESSION['shorturlredirect']);
+        header('Location: '.$url); 
+    }
     if (!isset($USER->id)) {
         throw new Exception(get_string('userid_not_found', 'local_shorturldemux'));
     }
-    if (!isset($_GET['c']) && !isset($_GET['s'])) {
+    if (!isset($_GET['c']) && !isset($_GET['s']) && !isset($_SESSION['shorturlredirect'])) {
         throw new Exception(get_string('nothing_specified', 'local_shorturldemux'));
     }
     if (isset($_GET['c'])) {
