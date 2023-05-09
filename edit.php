@@ -14,8 +14,10 @@
 
 
 // Hier beginnt die Seite
+// NS: Finde Heraus, wie man in VS Code den Programmcode so formatieren kann, dass die Einrückungen und Leerzeichen korrekt sind.
   
 //Sparche wird zu Beginn inital festgelegt und später per Auswahl
+// NS: Finde heraus wie man relative Pfade angeben kann. Die folgende Pfade gibt es bei mir nicht.
   if($lang=$_GET['langID'] == 'en'){
   include ('/xampp/htdocs/mylearn/local/shorturldemux/lang/en/local_shorturldemux.php') ;
   }
@@ -34,6 +36,7 @@ global $USER, $PAGE, $DB,$tabelle,$wert,$count,$getcourse;
 $PAGE->set_context($context);  
 $PAGE->set_url($CFG->wwwroot.'/local/shorturldemux/edit.php');
 
+// NS: Schreibe Kommentare auf englisch!
 //Prüft, ob eine Variable als belegt gilt, d.h., ob eine Variable deklariert ist und sich von null unterscheidet.
   if(isset($_GET['submit'])){
     $getcourse=$_GET['Course'];
@@ -53,6 +56,7 @@ echo $OUTPUT->header();
 
 
 // Verbinden zweier Datenblätter per sql Befehl
+// NS: Das ist nicht dir korrekte Art, um sich mit der Moodle-Datenbank zu verbinden. Stelle dir vor, jemand betreibt eine MariaDB, statt einer Postgres-DB für Moodle. Das geht so nicht. Schaue dir die Moodle Data API an!
     $dbconn3 = pg_connect("host=localhost port=5432 dbname=mylearn user=mylearn_user password=1234");
     $result = pg_query($dbconn3, 
       "SELECT DISTINCT  myl_shorturldemux_courses.course_id, 
@@ -70,6 +74,7 @@ echo $OUTPUT->header();
  ?>
 
 <!-- Entschiedungsfeld/Auswahlliste mit Modul-, und Sprachauswahl-->
+<!-- NS: Nein, die Sprache stellt man Systemweit in Moodle ein, nicht auf jeder einzelnen Seite! --
 <form name = "coursSelect" action = "edit.php" method = "get">
   
   <!--Hier wird die Sprache ausgewählt -->
@@ -82,6 +87,7 @@ echo $OUTPUT->header();
 <option selected disabled>-- <?php echo $string['course_ID'] ?> --</option>
 
 <?php
+// NS: Variablen bitte in englischer Sprache benennen.
 $ungerade=1;
 foreach($arr as $schluessel => $innen) {
   foreach($innen as $innerer_schluessel => $wert) {
@@ -112,6 +118,7 @@ if(isset($_GET['Course'])){
 
      //Verbindung zur Datenbank zur Ausgabe der im Dropdown ausgewählten Parameter
      //Verbindung zur Datenbank für join
+     // NS: Hier hast du Moodle Data API korrekt genutzt. Einzige das direkte einfügen der Variable course öffnet Tütr un dTor für SQL-Injektionen. Wir macht man das besser?
      $course = $DB->get_records_sql(
       'SELECT  myl_shorturldemux_courses.*, 
                myl_course.fullname
