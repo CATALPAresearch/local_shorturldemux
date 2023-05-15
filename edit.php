@@ -53,11 +53,11 @@ echo $OUTPUT->header();
 // NS: Das ist nicht dir korrekte Art, um sich mit der Moodle-Datenbank zu verbinden. Stelle dir vor, jemand betreibt eine MariaDB, 
 // NS: statt einer Postgres-DB für Moodle. Das geht so nicht. Schaue dir die Moodle Data API an! -> ERLEDIGT
 $arr = $DB->get_records_sql(
-  'SELECT DISTINCT myl_shorturldemux_courses.course_id, 
-           myl_course.fullname
-  FROM myl_shorturldemux_courses
-  FULL OUTER JOIN myl_course
-  ON myl_shorturldemux_courses.course_id=myl_course.id 
+  'SELECT DISTINCT {shorturldemux_courses.course_id}, 
+           {course.fullname}
+  FROM {shorturldemux_courses}
+  FULL OUTER JOIN {course}
+  ON {shorturldemux_courses.course_id}={course.id} 
   '
 );
 
@@ -109,14 +109,15 @@ if (isset($_GET['Course'])) {
     // NS: Hier hast du Moodle Data API korrekt genutzt. Einzige das direkte einfügen der Variable course öffnet Tütr un dTor für SQL-Injektionen. Wir macht man das besser?
     // -> Erledigt aus meinen dafürhalten gibt es hier 3 Mglk 1) Quotes setzen "'.$_GET['Course'].'"' 2)  direkt auf einen String prüfen  if ((string)((int)$_GET['Course']) !== $_GET['Course']) {  exit('Fehlerhafter Wert!'); } $getcourse= $_GET['id']; 
     // 3) direkt filtern (int)
-  $id = $_GET['id']; 
+  //$id = $_GET['id']; 
+  
     $course = $DB->get_records_sql(
-      'SELECT  myl_shorturldemux_courses.*, 
-               myl_course.fullname
-      FROM myl_shorturldemux_courses
-      FULL OUTER JOIN myl_course
-      ON myl_shorturldemux_courses.course_id=myl_course.id 
-      WHERE myl_shorturldemux_courses.course_id = ' . $getcourse = (int)$_GET['Course'] . '
+      'SELECT  {shorturldemux_courses.*}, 
+               {course.fullname}
+      FROM {shorturldemux_courses}
+      FULL OUTER JOIN {myl_course}
+      ON {shorturldemux_courses.course_id}={course.id} 
+      WHERE {shorturldemux_courses.course_id} = ' . $getcourse = (int)$_GET['Course'] . '
       '
     );
 
