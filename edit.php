@@ -17,13 +17,13 @@
 // NS: Finde Heraus, wie man in VS Code den Programmcode so formatieren kann, dass die Einrückungen und Leerzeichen korrekt sind. -->ERLEDIGT
 
 //Sparche wird zu Beginn inital festgelegt und später per Auswahl
-// NS: Finde heraus wie man relative Pfade angeben kann. Die folgende Pfade gibt es bei mir nicht. -->ERLEDIGT
+// NS: Finde heraus wie man relative Pfade angeben kann. Die folgende Pfade gibt es bei mir nicht. -->ERLEDIGT en_utf8 if (isset($_lang['lang'])=='de')
 
-
-if ($lang = locale_get_default() == 'en_utf8') { 
-  include(dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
-} else {
-  include (dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
+if ($_GET['lang'] == 'de') { 
+  include(dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
+} 
+if ($_GET['lang']  == 'en') {
+  include (dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
 }
 
 require_once dirname(__FILE__) . '/../../config.php';
@@ -53,11 +53,11 @@ echo $OUTPUT->header();
 // NS: Das ist nicht dir korrekte Art, um sich mit der Moodle-Datenbank zu verbinden. Stelle dir vor, jemand betreibt eine MariaDB, 
 // NS: statt einer Postgres-DB für Moodle. Das geht so nicht. Schaue dir die Moodle Data API an! -> ERLEDIGT
 $arr = $DB->get_records_sql(
-  'SELECT DISTINCT {shorturldemux_courses.course_id}, 
-           {course.fullname}
+  'SELECT DISTINCT {shorturldemux_courses}.course_id, 
+           {course}.fullname
   FROM {shorturldemux_courses}
   FULL OUTER JOIN {course}
-  ON {shorturldemux_courses.course_id}={course.id} 
+  ON {shorturldemux_courses}.course_id={course}.id 
   '
 );
 
@@ -109,15 +109,15 @@ if (isset($_GET['Course'])) {
     // NS: Hier hast du Moodle Data API korrekt genutzt. Einzige das direkte einfügen der Variable course öffnet Tütr un dTor für SQL-Injektionen. Wir macht man das besser?
     // -> Erledigt aus meinen dafürhalten gibt es hier 3 Mglk 1) Quotes setzen "'.$_GET['Course'].'"' 2)  direkt auf einen String prüfen  if ((string)((int)$_GET['Course']) !== $_GET['Course']) {  exit('Fehlerhafter Wert!'); } $getcourse= $_GET['id']; 
     // 3) direkt filtern (int)
-  //$id = $_GET['id']; 
+    //$id = $_GET['id']; 
   
     $course = $DB->get_records_sql(
-      'SELECT  {shorturldemux_courses.*}, 
-               {course.fullname}
+      'SELECT  {shorturldemux_courses}.*, 
+               {course}.fullname
       FROM {shorturldemux_courses}
-      FULL OUTER JOIN {myl_course}
-      ON {shorturldemux_courses.course_id}={course.id} 
-      WHERE {shorturldemux_courses.course_id} = ' . $getcourse = (int)$_GET['Course'] . '
+      FULL OUTER JOIN {course}
+      ON {shorturldemux_courses}.course_id={course}.id 
+      WHERE {shorturldemux_courses}.course_id = ' . $getcourse = (int)$_GET['Course'] . '
       '
     );
 
