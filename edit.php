@@ -40,6 +40,9 @@ global $USER, $PAGE, $DB, $tabelle, $wert, $count, $getcourse;
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/shorturldemux/edit.php');
 
+
+
+
 // NS: Schreibe Kommentare auf englisch! -->ERLEDIGT
 // checks whether a variable is occupied, that means whether a variable is declared and is different from null.
 if (isset($_GET['submit'])) {
@@ -69,7 +72,7 @@ $arr = $DB->get_records_sql(
 
 ?>
 
-<!-- Decision field/selection list with module and language selection-->
+<!-- Decision field/selection list with module selection-->
 <!-- NS: Nein, die Sprache stellt man Systemweit in Moodle ein, nicht auf jeder einzelnen Seite! ==> ERLEDIGT sihe Zeile 23 Aber ich kann nur englsich in moodle wählen-->  
 <form name = "coursSelect" action = "edit.php" method = "get">
 <select name="Course">
@@ -164,6 +167,24 @@ if (isset($_GET['Course'])) {
     echo "<br> ";
   }
 }
+echo "<br> ";
+echo "<br> ";
+?>
+<!--  The text for the header is set here. A reference to the selected course is added to the header. -->
+<h3><?php echo $string['Kurz-URL'] ?></h3>
 
+<!-- Forms evaluation and feedback -->
+<form action="edit.php" method="get">
+
+<p>Kurz-URL eintragen:
+<input type="text" name="Kurz-URL">
+</p>
+
+<p>
+<input type="submit" value="absenden">
+</p>
+
+</form>
+<?php
 echo $OUTPUT->footer();
 ?>
