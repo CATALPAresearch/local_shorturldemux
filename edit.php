@@ -1,3 +1,4 @@
+
 <?php
 /**
  * TODO
@@ -12,17 +13,22 @@
  * @link     URL shortener, short URL
  */
 
-
 // Hier beginnt die Seite
 // NS: Finde Heraus, wie man in VS Code den Programmcode so formatieren kann, dass die Einrückungen und Leerzeichen korrekt sind. -->ERLEDIGT
 
 //Sparche wird zu Beginn inital festgelegt und später per Auswahl
 // NS: Finde heraus wie man relative Pfade angeben kann. Die folgende Pfade gibt es bei mir nicht. -->ERLEDIGT en_utf8 if (isset($_lang['lang'])=='de')
 
-if ($_GET['lang'] == 'de') { 
+// isset to check whether the parameter was really supplied
+$lang = $_GET['lang'];
+  if (!isset($lang)) {
+    $lang = 'en';
+  }
+
+if ($lang == 'de') { 
   include(dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
 } 
-if ($_GET['lang']  == 'en') {
+if ($lang  == 'en') {
   include (dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
 }
 
