@@ -13,41 +13,37 @@
  * @link     URL shortener, short URL
  */
 
-// Hier beginnt die Seite
-// NS: Finde Heraus, wie man in VS Code den Programmcode so formatieren kann, dass die Einrückungen und Leerzeichen korrekt sind. -->ERLEDIGT
-
 //Sparche wird zu Beginn inital festgelegt und später per Auswahl
-// NS: Finde heraus wie man relative Pfade angeben kann. Die folgende Pfade gibt es bei mir nicht. -->ERLEDIGT en_utf8 if (isset($_lang['lang'])=='de')
-
 // isset to check whether the parameter was really supplied
 $lang = $_GET['lang'];
-  if (!isset($lang)) {
+  if (empty($lang) == true) {
     $lang = 'en';
   }
+  if ($lang == 'de') { 
+    include(dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
+  } 
+  if ($lang  == 'en') {
+    include (dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
+  }
 
-if ($lang == 'de') { 
-  include(dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
-} 
-if ($lang  == 'en') {
-  include (dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
-}
-
+// the data manipulation API is available in global scope right after including the config.php file
 require_once dirname(__FILE__) . '/../../config.php';
 
-
+// A context is combined with role permissions to define a user's abilities on any page in Moodle
 $context = context_system::instance();
+
+//make the DB object available in your local scope
 global $USER, $PAGE, $DB, $tabelle, $wert, $count, $getcourse;
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/shorturldemux/edit.php');
 
 
 
-
-// NS: Schreibe Kommentare auf englisch! -->ERLEDIGT
 // checks whether a variable is occupied, that means whether a variable is declared and is different from null.
 if (isset($_GET['submit'])) {
   $getcourse = $_GET['Course'];
 }
+
 // The text for the header is set here. A reference to the selected course is added to the header.
 if ($getcourse > 0) {
   $PAGE->set_heading($string['course']." ".$getcourse = $_GET['Course']);
@@ -55,136 +51,80 @@ if ($getcourse > 0) {
   $PAGE->set_heading($string['überschirft']);
 }
 
+//Header is added
 echo $OUTPUT->header();
 
-
-// Join two datasheets using sql command
-// NS: Das ist nicht dir korrekte Art, um sich mit der Moodle-Datenbank zu verbinden. Stelle dir vor, jemand betreibt eine MariaDB, 
-// NS: statt einer Postgres-DB für Moodle. Das geht so nicht. Schaue dir die Moodle Data API an! -> ERLEDIGT
-$arr = $DB->get_records_sql(
-  'SELECT DISTINCT {shorturldemux_courses}.course_id, 
-           {course}.fullname
-  FROM {shorturldemux_courses}
-  FULL OUTER JOIN {course}
-  ON {shorturldemux_courses}.course_id={course}.id 
-  '
-);
+// List of courses
+$erg = $DB->get_records_sql(
+  'SELECT DISTINCT {course}.id, {course}.fullname,
+  {course}.shortname 
+  FROM {course}
+  ')or die($db->error);
 
 ?>
 
-<!-- Decision field/selection list with module selection-->
-<!-- NS: Nein, die Sprache stellt man Systemweit in Moodle ein, nicht auf jeder einzelnen Seite! ==> ERLEDIGT sihe Zeile 23 Aber ich kann nur englsich in moodle wählen-->  
-<form name = "coursSelect" action = "edit.php" method = "get">
-<select name="Course">
-  <option selected disabled>
-    <?php echo $string['course_ID'] ?> 
-  </option>
-
-  <?php
-  // NS: Variablen bitte in englischer Sprache benennen. --> ERLEDIGT
-  $odd = 1;
-  foreach ($arr as $key => $inside) {
-    foreach ($inside as $innerer_key => $value0) {
-      // Here the course_id column is output together with the fullname column in the selection list
-      if ($odd % 2 != 0) {
-        // Here is the output
-        $next = next($inside);
-        ?>
-        <option value="<?php echo $value0 ?>"><?php echo $value0;
-           echo " / " . $next ?></option>
+  <!-- Decision field/selection list with module selection-->
+  <form name = "coursSelect" action = "edit.php" method = "get">
+    <select name="Course">
+      <option selected disabled><?php echo $string['course_ID'] ?> </option>
         <?php
-      }
-      $odd = $odd + 1;
-    }
-    ?>
+          foreach ($erg as $key => $inside) {
+              ?>
+                <option value="<?php echo ($erg[$key]->id) ?>"><?php echo( $erg[$key]->id) ." / ". ( $erg[$key]->fullname) ." / ". ( $erg[$key]->shortname) ?></option>
+              <?php
+          }
+        ?>
+    </select>
+    <!-- Eingabefeld Kurz URL -->
+    <input type="text" name= "short-URL" placeholder="<?php echo $string['Kurz-URL'] ?>">
+    <!-- Sende Button -->
+    <input type="submit" name="submit" value=<?php echo $string['course_button'] ?> />
+  </form>
 
-    <?php
-  }
+<?php
+
+// check whether selection field can be displayed
+if(empty((int)$_GET['Course']) != true and empty($_GET['short-URL']) != true){
+    $getcourse = (int)$_GET['Course'] ;
+    $getshortURL = $_GET['short-URL'];
+
+     $course = $DB->get_records_sql(
+     //$course = $db->query(
+      "SELECT DISTINCT mdl_shorturldemux_courses.*,
+      mdl_course.fullname
+      FROM mdl_shorturldemux_courses
+      LEFT JOIN mdl_course 
+      ON mdl_shorturldemux_courses.course_id=mdl_course.id 
+      WHERE mdl_shorturldemux_courses.course_id = $getcourse
+      AND {shorturldemux_courses}.short = '$getshortURL'
+      UNION
+      SELECT DISTINCT mdl_shorturldemux_courses.*,
+      mdl_course.fullname
+      FROM mdl_shorturldemux_courses
+      RIGHT JOIN mdl_course 
+      ON mdl_shorturldemux_courses.course_id=mdl_course.id 
+      WHERE mdl_shorturldemux_courses.course_id = $getcourse
+      AND {shorturldemux_courses}.short = '$getshortURL'
+      ");
+
   ?>
-</select>
-<input type="submit" name="submit" value=<?php echo $string['course_button'] ?> />
-</form>
-
-<?php
-
-// OUTPUT of the module selection
-if (isset($_GET['Course'])) {
-
-  if ($getcourse = $_GET['Course'] > 0) {
-    echo "<br> ";
-
-    // Connection to the database to output the parameters selected in the dropdown
-    // Connection to database for join
-    // NS: Hier hast du Moodle Data API korrekt genutzt. Einzige das direkte einfügen der Variable course öffnet Tütr un dTor für SQL-Injektionen. Wir macht man das besser?
-    // -> Erledigt aus meinen dafürhalten gibt es hier 3 Mglk 1) Quotes setzen "'.$_GET['Course'].'"' 2)  direkt auf einen String prüfen  if ((string)((int)$_GET['Course']) !== $_GET['Course']) {  exit('Fehlerhafter Wert!'); } $getcourse= $_GET['id']; 
-    // 3) direkt filtern (int)
-    //$id = $_GET['id']; 
-  
-    $course = $DB->get_records_sql(
-      'SELECT  {shorturldemux_courses}.*, 
-               {course}.fullname
-      FROM {shorturldemux_courses}
-      FULL OUTER JOIN {course}
-      ON {shorturldemux_courses}.course_id={course}.id 
-      WHERE {shorturldemux_courses}.course_id = ' . $getcourse = (int)$_GET['Course'] . '
-      '
-    );
-
-    echo '<table>';
-
-    echo '<thead>';
-    echo '<table border=1>';
-    echo '<th> ID </th>';
-    echo '<th> short </th>';
-    echo '<th> course_id </th>';
-    echo '<th> path </th>';
-    echo '<th> fullname </th>';
-    echo '</thead>';
-
-    foreach ($course as $key1 => $inside1) {
-
-      echo '<tbody>';
-
-      foreach ($inside1 as $innerer_key1 => $value1) {
-        echo '<td><a>' . $value1 . ' </a></td>';
-      }
-
-    }
-    echo '</tbody>';
-    echo '</table>';
-    echo "<br> ";
-  }
-  echo "<br> ";
-
-  //Link prüfen
-  if (isset($_GET['course_id'])) {
-    echo "<br> ";
-    echo $_GET['course_id'];
-  }
-
-  if ($getcourse == 0) {
-    echo "Kurswahl : " . $getcourse;
-    echo "<br> ";
-  }
+    <!-- Decision field/selection list with module selection-->
+    <form name = "taskSelect" action = "edit.php" method = "get">
+      <select name="Task">
+        <option selected disabled><?php echo $string['task'] ?> </option>
+          <?php
+           foreach ($course as $key => $inside) {
+            ?>
+              <option value="submit"><?php echo( $course[$key]->path) ?></option>
+            <?php
+           }
+          ?>
+      </select>
+      <!-- Sende Button -->
+      <input type="submit" name="submit" value=<?php echo $string['course_button'] ?> />
+    </form>
+  <?php
 }
-echo "<br> ";
-echo "<br> ";
-?>
-<!--  The text for the header is set here. A reference to the selected course is added to the header. -->
-<h3><?php echo $string['Kurz-URL'] ?></h3>
 
-<!-- Forms evaluation and feedback -->
-<form action="edit.php" method="get">
-
-<p>Kurz-URL eintragen:
-<input type="text" name="Kurz-URL">
-</p>
-
-<p>
-<input type="submit" value="absenden">
-</p>
-
-</form>
-<?php
 echo $OUTPUT->footer();
 ?>

@@ -6,7 +6,15 @@ $string['no_course_enrolled'] = "Sie sind in keinem Kurs eingeschrieben";
 $string['nothing_specified'] = "Sie haben keine Kurz-URL oder Kurs angegeben.";
 $string['userid_not_found'] = "Einen Nutzer mit dieser ID kennen wir nicht.";
 $string['no_matching_course'] = "Wir haben keinen passenden Kurs gefunden.";
-
+$string['überschirft'] = "Kurs";
+$string['course'] = "gewählter Kurs: ";
+$string['course_ID'] = "Kurs ID auswählen";
+$string['Kurz-URL']  = "Kurs URL eintragen: ";
+$string['absenden'] ="absenden";
+$string['eintragen']  = "Kurs-URL eintragen";
+$string['course_button'] = "senden";
+$string['short'] = "Kurz-URL";
+$string['task'] = "Augabe auswählen";
 ?>
 
 

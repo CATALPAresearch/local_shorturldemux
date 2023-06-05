@@ -15,5 +15,14 @@ Wählen Sie anschließend den von Ihnen belegten Kurse und schreiben Sie sich ei
 $string['nothing_specified'] = "Sie haben keine Kurz-URL oder Kurs angegeben.";
 $string['userid_not_found'] = "Einen Nutzer mit dieser ID kennen wir nicht.";
 $string['no_matching_course'] = "Wir haben keinen passenden Kurs gefunden.";
-
+$string['überschirft'] = "Course";
+$string['course'] = "chosen Course: ";
+$string['course_ID'] = "chose Course ID";
+$string['Kurz-URL']  = "Enter course URL: ";
+$string['absenden'] ="send_off ";
+$string['eintragen']  = "Enter course URL";
+$string['course_button'] = "send";
+$string['short'] = "short-URL";
+$string['absenden'] = "send";
+$string['task'] = "select issue";
 ?>
