@@ -12,9 +12,12 @@ $string['course_ID'] = "Kurs ID auswählen";
 $string['Kurz-URL']  = "Kurs URL eintragen: ";
 $string['absenden'] ="absenden";
 $string['eintragen']  = "Kurs-URL eintragen";
-$string['course_button'] = "senden";
+$string['LINK'] = "LINK-anzeigen";
 $string['short'] = "Kurz-URL";
 $string['task'] = "Augabe auswählen";
+$string['write_button'] = "schreiben";
+$string['course_button'] = "senden";
+$string['LINK-save'] = "sichern";
 ?>
 
 

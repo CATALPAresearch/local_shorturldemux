@@ -21,8 +21,11 @@ $string['course_ID'] = "chose Course ID";
 $string['Kurz-URL']  = "Enter course URL: ";
 $string['absenden'] ="send_off ";
 $string['eintragen']  = "Enter course URL";
-$string['course_button'] = "send";
+$string['LINK'] = "show-LINK";
 $string['short'] = "short-URL";
 $string['absenden'] = "send";
 $string['task'] = "select issue";
+$string['write_button'] = "write";
+$string['course_button'] = "send";
+$string['LINK-save'] = "save";
 ?>
