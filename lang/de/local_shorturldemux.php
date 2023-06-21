@@ -14,10 +14,13 @@ $string['absenden'] ="absenden";
 $string['eintragen']  = "Kurs-URL eintragen";
 $string['LINK'] = "LINK-anzeigen";
 $string['short'] = "Kurz-URL";
-$string['task'] = "Augabe auswählen";
+$string['task'] = "Speicheroption auswählen";
 $string['write_button'] = "schreiben";
 $string['course_button'] = "senden";
 $string['LINK-save'] = "sichern";
+$string['selected_path'] = "Der ausgewählte und neue Pfad";
+$string['next_entry'] = "nächsten Eintrag erzeugen";
+$string['old_entry'] = "alten Eintrag überschreiben";
 ?>
 
 

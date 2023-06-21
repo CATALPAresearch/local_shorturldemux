@@ -13,19 +13,6 @@
  * @link     URL shortener, short URL
  */
 
-
-// Language is initially set at the beginning and later by selection
-$lang = $_GET['lang'];
-  if (empty($lang) == true) {
-    $lang = 'en';
-  }
-  if ($lang == 'de') { 
-    include(dirname(__FILE__) . '/../../local/shorturldemux/lang/de/local_shorturldemux.php');
-  } 
-  if ($lang  == 'en') {
-    include (dirname(__FILE__) . '/../../local/shorturldemux/lang/en/local_shorturldemux.php');
-  }
-
 // the data manipulation API is available in global scope right after including the config.php file
 require_once dirname(__FILE__) . '/../../config.php';
 
@@ -33,9 +20,10 @@ require_once dirname(__FILE__) . '/../../config.php';
 $context = context_system::instance();
 
 //make the DB object available in your local scope
-global $USER, $PAGE, $DB, $tabelle, $wert, $count, $getcourse, $shortURL;
+global $USER, $PAGE, $DB, $tabelle, $wert, $count, $getcourse;
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/shorturldemux/edit.php');
+require_login();
 
 
 
@@ -46,14 +34,11 @@ if (isset($_GET['submit'])) {
 
 // The text for the header is set here. A reference to the selected course is added to the header.
 if ($getcourse > 0) {
-  $PAGE->set_heading($string['course']." ".$getcourse = $_GET['Course']);
-} else {
-  $PAGE->set_heading($string['überschirft']);
-}
+  $PAGE->set_heading(get_string ('course', 'local_shorturldemux')." ".$getcourse = $_GET['Course']);
+} 
 
 //Header is added
 echo $OUTPUT->header();
-
 
 
 
@@ -71,7 +56,7 @@ $erg = $DB->get_records_sql(
   <!-- Decision field/selection list with module selection-->
   <form name = "coursSelect" action = "edit.php" method = "get">
     <select name="Course">
-      <option selected disabled><?php echo $string['course_ID'] ?> </option>
+      <option selected disabled><?php echo get_string ('course_ID', 'local_shorturldemux') ?> </option>
         <?php
           foreach ($erg as $key => $inside) {
               ?>
@@ -81,9 +66,9 @@ $erg = $DB->get_records_sql(
         ?>
     </select>
     <!-- Input field Short URL -->
-    <input type="text" name= "short-URL" placeholder="<?php echo $string['Kurz-URL'] ?>">
+    <input type="text" name= "short-URL" placeholder="<?php echo get_string ('Kurz-URL', 'local_shorturldemux')  ?>"/>
     <!-- Send button -->
-    <input type="submit" name="submit" value=<?php echo $string['course_button'] ?> />
+    <input type="submit" name="submit" value=<?php echo get_string ('course_button', 'local_shorturldemux')  ?> />
   </form>
 
 <?php
@@ -121,7 +106,7 @@ $erg = $DB->get_records_sql(
     <!-- Decision field/selection list with module selection-->
     <form name = "taskSelect" method = "get">
       <select name="Task">
-        <option selected disabled><?php echo $string['task'] ?> </option>
+        <option selected disabled><?php echo get_string ('task', 'local_shorturldemux') ?> </option>
           <?php
            foreach ($course as $key => $inside) {
             ?>
@@ -133,66 +118,66 @@ $erg = $DB->get_records_sql(
           ?>
       </select>
       <!-- Sende Button -->
-     <input type="submit" value=<?php echo $string['LINK'] ?> >
+     <input type="submit" value=<?php echo get_string ('LINK', 'local_shorturldemux')  ?> >
     </form>
   <?php
 }
 
       // add the prefixn
-      $trennen = explode('_',$_GET['Task']);
+      $separate = explode('_',$_GET['Task']);
       
-  if($trennen[0] >0){
+  if($separate[0] >0){
     ?>
       <form name = "SaveSelect" method = "get">
         <!-- output LINK -->
-        <?php if($trennen[0] ==1){ ?>
-        <?php echo " Der ausgewählte und neue Pfad : <a href= 'https://e.feu.de/'.$trennen[2] > https://e.feu.de/$trennen[2] </a> <br> <br>" ?> 
+        <?php if($separate[0] ==1){ ?>
+        <?php echo get_string ('selected_path', 'local_shorturldemux')." : <a href= 'https://e.feu.de/'.$separate[2] > https://e.feu.de/$separate[2] </a> <br> <br>" ?> 
         <?php } ?>
-        <?php if($trennen[0] ==2){ ?>
-        <?php echo " Der ausgewählte und neue Pfad : <a href= 'https://aple.fernuni-hagen.de'.$trennen[4] > https://aple.fernuni-hagen.de$trennen[4] </a> <br> <br>" ?> 
+        <?php if($separate[0] ==2){ ?>
+        <?php echo get_string ('selected_path', 'local_shorturldemux')."  : <a href= 'https://aple.fernuni-hagen.de'.$separate[4] > https://aple.fernuni-hagen.de$separate[4] </a> <br> <br>" ?> 
         <?php } ?>
         <!-- preparation for entry in the DB -->
         <select name="Save">
-          <option selected disabled><?php echo $string['task'] ?> </option>
-          <option  value = <?php echo "1"."_".$trennen[0]."_".$trennen[1]."_".$trennen[2]."_".$trennen[3]."_".$trennen[4] ?>>
-          <?php echo "nächsten Eintrag erzeugen"  ?></option>
-          <option  value = <?php echo "0"."_".$trennen[0]."_".$trennen[1]."_".$trennen[2]."_".$trennen[3]."_".$trennen[4] ?>>
-          <?php echo"alten Eintrag überschreiben" ?></option>
+          <option selected disabled><?php echo get_string ('task', 'local_shorturldemux') ?> </option>
+          <option  value = <?php echo "1"."_".$separate[0]."_".$separate[1]."_".$separate[2]."_".$separate[3]."_".$separate[4] ?>>
+          <?php echo get_string ('next_entry', 'local_shorturldemux'); ?> </option>
+          <option  value = <?php echo "0"."_".$separate[0]."_".$separate[1]."_".$separate[2]."_".$separate[3]."_".$separate[4] ?>>
+          <?php echo get_string ('old_entry', 'local_shorturldemux');  ?> </option>
         </select>
         <!-- Send Button -->
-        <input type="submit" value=<?php echo $string['LINK-save'] ?> >
+        <input type="submit" value=<?php echo get_string ('LINK-save', 'local_shorturldemux')   ?> >
       </form>
     <?php
       }
 
 // Separate variables for storage
-$trennen2 = explode('_',$_GET['Save']);
+$separate2 = explode('_',$_GET['Save']);
 
   // create new entry
-  if( $trennen2[0] == 1 ){
+  if( $separate2[0] == 1 ){
 
     // write new Domaine
-    if($trennen2[1] == 1){
+    if($separate2[1] == 1){
       $ins = new stdClass();
-      $ins->short = 'https://e.feu.de/'.$trennen2[3];
-      $ins->course_id = $trennen2[4];
-      $ins->path= $trennen2[5];
+      $ins->short = 'https://e.feu.de/'.$separate2[3];
+      $ins->course_id = $separate2[4];
+      $ins->path= $separate2[5];
       $DB -> insert_record('shorturldemux_courses', $ins);
     }
 
     // write new path
-    if($trennen2[1] == 2){
+    if($separate2[1] == 2){
       $ins = new stdClass();
-      $ins->short = $trennen2[3];
-      $ins->course_id = $trennen2[4];
-      $ins->path= 'https://aple.fernuni-hagen.de'.$trennen2[5];
+      $ins->short = $separate2[3];
+      $ins->course_id = $separate2[4];
+      $ins->path= 'https://aple.fernuni-hagen.de'.$separate2[5];
       $DB -> insert_record('shorturldemux_courses', $ins);
     }
 
   }
 
   // overwrite content
-  if( $trennen2[0] == 0){
+  if( $separate2[0] == 0){
 
     // Refresh database
     $course2 = $DB->get_records_sql(
@@ -212,22 +197,22 @@ $trennen2 = explode('_',$_GET['Save']);
     foreach ($course2 as $key => $inside) {
       
         // overwrite Domaine
-        if($trennen2[1] == 1){
+        if($separate2[1] == 1){
           $ins = new stdClass();
-          $ins->id = $trennen2[2];
-          $ins->short = 'https://e.feu.de/'.$trennen2[3];
-          $ins->course_id = $trennen2[4];
-          $ins->path= $trennen2[5];
+          $ins->id = $separate2[2];
+          $ins->short = 'https://e.feu.de/'.$separate2[3];
+          $ins->course_id = $separate2[4];
+          $ins->path= $separate2[5];
           $DB -> update_record('shorturldemux_courses', $ins);
         }
       
         // overwrite path
-        if($trennen2[1] == 2){
+        if($separate2[1] == 2){
           $ins = new stdClass();
-          $ins->id = $trennen2[2];
-          $ins->short = $trennen2[3];
-          $ins->course_id = $trennen2[4];
-          $ins->path= 'https://aple.fernuni-hagen.de'.$trennen2[5];
+          $ins->id = $separate2[2];
+          $ins->short = $separate2[3];
+          $ins->course_id = $separate2[4];
+          $ins->path= 'https://aple.fernuni-hagen.de'.$separate2[5];
           $DB -> update_record('shorturldemux_courses', $ins);
         }
     }

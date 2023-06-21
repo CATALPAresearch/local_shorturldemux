@@ -28,4 +28,7 @@ $string['task'] = "select issue";
 $string['write_button'] = "write";
 $string['course_button'] = "send";
 $string['LINK-save'] = "save";
+$string['selected_path'] = "The selected and new path";
+$string['next_entry'] = "create next entry";
+$string['old_entry'] = "overwrite old entry";
 ?>
