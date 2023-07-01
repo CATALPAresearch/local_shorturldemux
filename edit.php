@@ -166,7 +166,6 @@ $separate2 = explode('_',$_GET['Save']);
               if(empty($_GET[$key]) != true  && $key != "Save"){
                 $insert->short = $newline[2];
                 $insert->course_id = $separate2[1];
-                $insert->path =  $_GET[$key];
                 $insert->path = $newline[3];
                 $insert->fullname = $separate2[2];
                 $DB -> insert_record('shorturldemux_courses', $insert);
