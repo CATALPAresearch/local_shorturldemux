@@ -13,19 +13,13 @@
  * @link     URL shortener, short URL
  */
 
-// the data manipulation API is available in global scope right after including the config.php file
 require_once dirname(__FILE__) . '/../../config.php';
 
-// A context is combined with role permissions to define a user's abilities on any page in Moodle
 $context = context_system::instance();
-
-//make the DB object available in your local scope
-global $USER, $PAGE, $DB, $tabelle, $wert, $count, $getcourse;
+global $USER, $PAGE, $DB;
 $PAGE->set_context($context);
 $PAGE->set_url($CFG->wwwroot . '/local/shorturldemux/edit.php');
 require_login();
-
-
 
 // checks whether a variable is occupied, that means whether a variable is declared and is different from null.
 if (isset($_GET['submit'])) {
@@ -40,183 +34,182 @@ if ($getcourse > 0) {
 //Header is added
 echo $OUTPUT->header();
 
-
-
-
-
 // edit List of courses
-$erg = $DB->get_records_sql(
+$result = $DB->get_records_sql(
   'SELECT DISTINCT {course}.id, {course}.fullname,
   {course}.shortname 
   FROM {course}
   ');
 
 ?>
-
   <!-- Decision field/selection list with module selection-->
   <form name = "coursSelect" action = "edit.php" method = "get">
     <select name="Course">
       <option selected disabled><?php echo get_string ('course_ID', 'local_shorturldemux') ?> </option>
         <?php
-          foreach ($erg as $key => $inside) {
+          foreach ($result as $key => $inside) {
               ?>
-                <option value="<?php echo ($erg[$key]->id) ?>"><?php echo( $erg[$key]->id) ." / ". ( $erg[$key]->fullname) ." / ". ( $erg[$key]->shortname) ?></option>
+                <option value="<?php echo ($result[$key]->id) ?>"><?php echo( $result[$key]->id) ." / ". ( $result[$key]->fullname) ." / ". ( $result[$key]->shortname) ?></option>
               <?php
           }
         ?>
     </select>
-    <!-- Input field Short URL -->
-    <input type="text" name= "short-URL" placeholder="<?php echo get_string ('Kurz-URL', 'local_shorturldemux')  ?>"/>
-    <!-- Send button -->
+     <!-- Send button -->
     <input type="submit" name="submit" value=<?php echo get_string ('course_button', 'local_shorturldemux')  ?> />
   </form>
-
 <?php
 
-  // check whether selection field can be displayed
-  if(empty((int)$_GET['Course']) != true and empty($_GET['short-URL']) != true){
+// OUTPUT of the module selection
+if (isset($_GET['Course'])) {
 
-      //Query data from the DB
-      $getcourse = (int)$_GET['Course'] ;
-      $getshortURL = $_GET['short-URL'];
+  if ($getcourse = $_GET['Course'] > 0) {
+  
+  //Query data from the DB
+  $getcourse = (int)$_GET['Course'] ;
 
-      $course = $DB->get_records_sql(
-        "SELECT DISTINCT {shorturldemux_courses}.*,
-        {course}.fullname
-        FROM {shorturldemux_courses}
-        LEFT JOIN {course} 
-        ON {shorturldemux_courses}.course_id={course}.id 
-        WHERE {shorturldemux_courses}.course_id = $getcourse
-        AND {shorturldemux_courses}.short = '$getshortURL'
-        UNION
-        SELECT DISTINCT {shorturldemux_courses}.*,
-        {course}.fullname
-        FROM {shorturldemux_courses}
-        RIGHT JOIN {course} 
-        ON {shorturldemux_courses}.course_id={course}.id 
-        WHERE {shorturldemux_courses}.course_id = $getcourse
-        AND {shorturldemux_courses}.short = '$getshortURL'
-        ");
+  $course = $DB->get_records_sql(
+    "SELECT DISTINCT a.*,
+    b.fullname
+    FROM {shorturldemux_courses} a
+    LEFT JOIN {course} b
+    ON a.course_id=b.id 
+    WHERE a.course_id = $getcourse
     
-        $Domain_Präfix="https://e.feu.de/";
-        $Pfad_Präfix="https://aple.fernuni-hagen.de"; 
+    UNION
 
-?>
+    SELECT DISTINCT a.*,
+    b.fullname
+    FROM {shorturldemux_courses} a
+    RIGHT JOIN {course} b
+    ON a.course_id=b.id 
+    WHERE a.course_id = $getcourse
+    ");
 
-    <!-- Decision field/selection list with module selection-->
-    <form name = "taskSelect" method = "get">
-      <select name="Task">
-        <option selected disabled><?php echo get_string ('task', 'local_shorturldemux') ?> </option>
-          <?php
-           foreach ($course as $key => $inside) {
-            ?>
-              <option value = ""> <?php echo "<br>"; ?>  </optin> 
-              <option value = "<?php echo ("1"."_".$course[$key]->id)."_".($course[$key]->short)."_".($course[$key]->course_id)."_".($course[$key]->path)  ?>"><?php echo"Domäne : ".( $course[$key]->short) ?></option>
-              <option value = "<?php echo ("2"."_".$course[$key]->id)."_".($course[$key]->short)."_".($course[$key]->course_id)."_".($course[$key]->path)  ?>"><?php echo"Path   : ".( $course[$key]->path ) ?></option>
-            <?php
-           }
-          ?>
-      </select>
-      <!-- Sende Button -->
-     <input type="submit" value=<?php echo get_string ('LINK', 'local_shorturldemux')  ?> >
-    </form>
-  <?php
-}
-
-      // add the prefixn
-      $separate = explode('_',$_GET['Task']);
-      
-  if($separate[0] >0){
+  // output of the table
     ?>
-      <form name = "SaveSelect" method = "get">
-        <!-- output LINK -->
-        <?php if($separate[0] ==1){ ?>
-        <?php echo get_string ('selected_path', 'local_shorturldemux')." : <a href= 'https://e.feu.de/'.$separate[2] > https://e.feu.de/$separate[2] </a> <br> <br>" ?> 
-        <?php } ?>
-        <?php if($separate[0] ==2){ ?>
-        <?php echo get_string ('selected_path', 'local_shorturldemux')."  : <a href= 'https://aple.fernuni-hagen.de'.$separate[4] > https://aple.fernuni-hagen.de$separate[4] </a> <br> <br>" ?> 
-        <?php } ?>
-        <!-- preparation for entry in the DB -->
-        <select name="Save">
+    <form method="get" name="Coure">
+      <table cellspacing="0" name="Course">
+        <caption> <?php echo get_string ('course', 'local_shorturldemux') ?></caption>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">short</th>
+          <th scope="col"> <?php echo get_string ('table_change', 'local_shorturldemux') ?> </th>
+          <th scope="col">course_id</th>
+          <th scope="col">path</th>
+          <th scope="col"> <?php echo get_string ('table_change2', 'local_shorturldemux') ?> </th>
+          <th scope="col">fullname</th>
+          <th scope="col"> <?php echo get_string ('delete_line', 'local_shorturldemux') ?> </th>
+        </tr>
+        <?php
+        foreach ($course as $key1 => $inside1) {
+        ?>
+          <tr>
+            <th scope="row"><?php echo ($course[$key1]->id) ?></th>
+            <th scope="row"><?php echo ($course[$key1]->short) ?></th>
+            <td><input type="text" name= "<?php echo ($course[$key1]->id) ?>" /></td>
+            <th scope="row"><?php echo ($course[$key1]->course_id) ?></th>
+            <th scope="row"><?php echo ($course[$key1]->path) ?></th>
+            <td><input type="text" name= "<?php echo ($course[$key1]->id)."_" ?>" /></td>
+            <th scope="row"><?php echo ($course[$key1]->fullname) ?></th>
+            <th scope="row"> <input type="checkbox" name=  "<?php echo ($course[$key1]->id)."box"?>" value='1' > </th>
+          </tr>
+        <?php
+        }
+        ?>
+      </table>
+      <select name="Save">
           <option selected disabled><?php echo get_string ('task', 'local_shorturldemux') ?> </option>
-          <option  value = <?php echo "1"."_".$separate[0]."_".$separate[1]."_".$separate[2]."_".$separate[3]."_".$separate[4] ?>>
-          <?php echo get_string ('next_entry', 'local_shorturldemux'); ?> </option>
-          <option  value = <?php echo "0"."_".$separate[0]."_".$separate[1]."_".$separate[2]."_".$separate[3]."_".$separate[4] ?>>
-          <?php echo get_string ('old_entry', 'local_shorturldemux');  ?> </option>
-        </select>
-        <!-- Send Button -->
-        <input type="submit" value=<?php echo get_string ('LINK-save', 'local_shorturldemux')   ?> >
-      </form>
+          <option  value = <?php echo "1"."_".$course[$key1]->course_id."_".$course[$key1]->fullname."_" ?>>
+          <?php echo get_string ('next_entry', 'local_shorturldemux'); ?></option>
+          <option  value = <?php echo "0"."_".$course[$key1]->course_id."_".$course[$key1]->fullname."_" ?>>
+          <?php  echo get_string ('old_entry', 'local_shorturldemux');  ?></option>
+          <option  value = <?php echo "2"."_".$course[$key1]->course_id."_".$course[$key1]->fullname."_" ?>>
+          <?php  echo get_string ('delete_entry', 'local_shorturldemux');  ?></option>
+      </select>
+         <!-- Send Button -->
+         <input type="submit" value=<?php echo get_string ('LINK-save', 'local_shorturldemux')   ?> >
+    </form>
     <?php
-      }
-
+  }
+}
 // Separate variables for storage
 $separate2 = explode('_',$_GET['Save']);
-
-  // create new entry
+  // write new line into DB
   if( $separate2[0] == 1 ){
-
-    // write new Domaine
-    if($separate2[1] == 1){
-      $ins = new stdClass();
-      $ins->short = 'https://e.feu.de/'.$separate2[3];
-      $ins->course_id = $separate2[4];
-      $ins->path= $separate2[5];
-      $DB -> insert_record('shorturldemux_courses', $ins);
-    }
-
-    // write new path
-    if($separate2[1] == 2){
-      $ins = new stdClass();
-      $ins->short = $separate2[3];
-      $ins->course_id = $separate2[4];
-      $ins->path= 'https://aple.fernuni-hagen.de'.$separate2[5];
-      $DB -> insert_record('shorturldemux_courses', $ins);
-    }
-
+      
+          // if short or path has been changed
+          foreach ($_GET as $key=>$val) {
+            $key2 = $key."_";
+            // if short and path has been changed
+            if((empty($_GET[$key]) != true && empty($_GET[$key2]) != true  && $key != "Save" )){
+              $insert->short = $_GET[$key];
+              $insert->course_id = $separate2[1];
+              $insert->path =  $_GET[$key2];
+              $insert->fullname = $separate2[2];
+              $DB -> insert_record('shorturldemux_courses', $insert);
+              $_GET[$key2] = null;
+            }else{
+              // array with line content
+              $newline=null;
+              // Insert id depending on path or short
+              $insert = new stdClass();
+              // if short has been changed
+              if(strpos($key, '_') == false && empty($_GET[$key]) != true  && $key != "Save" ){
+                $newline[2] = $_GET[$key];
+              }
+              // if path has been changed
+              if(strpos($key, '_') != false && empty($_GET[$key]) != true  && $key != "Save"  ){
+              $newline[3] = $_GET[$key];
+              }
+              // write values into DB
+              if(empty($_GET[$key]) != true  && $key != "Save"){
+                $insert->short = $newline[2];
+                $insert->course_id = $separate2[1];
+                $insert->path =  $_GET[$key];
+                $insert->path = $newline[3];
+                $insert->fullname = $separate2[2];
+                $DB -> insert_record('shorturldemux_courses', $insert);
+              }
+            }
+          }
   }
-
-  // overwrite content
+  // overwrite content in DB
   if( $separate2[0] == 0){
-
-    // Refresh database
-    $course2 = $DB->get_records_sql(
-        "SELECT DISTINCT {shorturldemux_courses}.*,
-        {course}.fullname
-        FROM {shorturldemux_courses}
-        LEFT JOIN {course} 
-        ON {shorturldemux_courses}.course_id={course}.id 
-        UNION
-        SELECT DISTINCT {shorturldemux_courses}.*,
-        {course}.fullname
-        FROM {shorturldemux_courses}
-        RIGHT JOIN {course} 
-        ON {shorturldemux_courses}.course_id={course}.id 
-      ");
-
-    foreach ($course2 as $key => $inside) {
-      
-        // overwrite Domaine
-        if($separate2[1] == 1){
-          $ins = new stdClass();
-          $ins->id = $separate2[2];
-          $ins->short = 'https://e.feu.de/'.$separate2[3];
-          $ins->course_id = $separate2[4];
-          $ins->path= $separate2[5];
-          $DB -> update_record('shorturldemux_courses', $ins);
+      // if short has been changed
+      foreach ($_GET as $key=>$val) {
+        // Insert id depending on path or short
+        $insert = new stdClass();
+        // set id for change 
+        if(strpos($key, '_') == false && empty($_GET[$key]) != true && $key != "Save" ){
+          $insert->id = $key;
         }
-      
-        // overwrite path
-        if($separate2[1] == 2){
-          $ins = new stdClass();
-          $ins->id = $separate2[2];
-          $ins->short = $separate2[3];
-          $ins->course_id = $separate2[4];
-          $ins->path= 'https://aple.fernuni-hagen.de'.$separate2[5];
-          $DB -> update_record('shorturldemux_courses', $ins);
+        if(strpos($key, '_') != false && empty($_GET[$key]) != true && $key != "Save" ){
+          $search = '_';
+          $replace = '';
+          $string = str_replace( $search, $replace, $key );
+          $insert->id = $string;
         }
+        // if short has been changed
+        if(strpos($key, '_') == false && empty($_GET[$key]) != true && $key != "Save" ){
+         $insert->short = $_GET[$key];
+        }
+         // if path has been changed
+        if(strpos($key, '_') != false && empty($_GET[$key]) != true && $key != "Save"  ){
+          $insert->path = $_GET[$key];
+        }
+        // write values into DB
+        if(empty($_GET[$key]) != true && empty($_GET[$key]) != true && $key != "Save" ){
+         $DB -> update_record('shorturldemux_courses', $insert);
+        }
+      }
+  }
+  // delete line or lines
+  if( $separate2[0] == 2){
+    foreach ($_GET as $key=>$val) {
+       if(strpos($key, 'box') != false && $_GET[$key] == 1){
+          $DB -> delete_records('shorturldemux_courses', array('id'=>$key));
+       }
     }
   }
-  
 echo $OUTPUT->footer();
 ?>

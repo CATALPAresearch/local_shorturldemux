@@ -1,34 +1,15 @@
 <?php
-/*$string['pluginname'] = "Short-URL Demultiplexer";
-$string['no_course_found'] = "No such course found.";
-$string['no_course_enrolled'] = "No enrolled course found.";
-$string['nothing_specified'] = "No shortener or course specified.";
-$string['userid_not_found'] = "User id not found.";
-$string['no_matching_course'] = "No matched course found.";
-*/
 
-$string['pluginname'] = "Short-URL Demultiplexer";
-$string['no_course_found'] = "Wir konnten keinen Kurs dieser Art finden.";
-$string['no_course_enrolled'] = "Ups. Könnte es sein, dass Sie sich bislang noch nicht im APLE-Moodle eingeloggt haben? 
-Gehen Sie doch bitte einmal auf folgende Seite und loggen Sie sich mit Ihren Zugangsdaten der FernUni ein: https://aple.fernuni-hagen.de/ 
-Wählen Sie anschließend den von Ihnen belegten Kurse und schreiben Sie sich ein. Anschließend funktionieren alle Links/QR-Codes. ";
-$string['nothing_specified'] = "Sie haben keine Kurz-URL oder Kurs angegeben.";
-$string['userid_not_found'] = "Einen Nutzer mit dieser ID kennen wir nicht.";
-$string['no_matching_course'] = "Wir haben keinen passenden Kurs gefunden.";
-$string['überschirft'] = "Course";
-$string['course'] = "chosen Course: ";
+$string['course'] = "content of their course choice: ";
 $string['course_ID'] = "chose Course ID";
-$string['Kurz-URL']  = "Enter course URL: ";
-$string['absenden'] ="send_off ";
-$string['eintragen']  = "Enter course URL";
-$string['LINK'] = "show-LINK";
-$string['short'] = "short-URL";
-$string['absenden'] = "send";
-$string['task'] = "select issue";
-$string['write_button'] = "write";
 $string['course_button'] = "send";
-$string['LINK-save'] = "save";
-$string['selected_path'] = "The selected and new path";
+$string['table_change'] = " short change";
+$string['table_change2'] = " path change";
+$string['task'] = "select issue";
 $string['next_entry'] = "create next entry";
 $string['old_entry'] = "overwrite old entry";
+$string['delete_entry'] = "delete entry";
+$string['LINK-save'] = "save";
+$string['delete_line'] = "delete a line";
+
 ?>
