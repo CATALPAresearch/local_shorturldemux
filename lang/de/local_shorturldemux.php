@@ -8,7 +8,7 @@ $string['table_change2'] = " path Ändern";
 $string['task'] = "Speicheroption auswählen";
 $string['next_entry'] = "nächsten Eintrag erzeugen";
 $string['old_entry'] = "alten Eintrag überschreiben";
-$string['delete_entry'] = "Eintrag löschen";
+$string['delete_entry'] = "Auswahl löschen";
 $string['LINK-save'] = "sichern";
 $string['delete_line'] = "Zeile löschen";
 

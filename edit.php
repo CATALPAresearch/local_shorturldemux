@@ -36,9 +36,9 @@ echo $OUTPUT->header();
 
 // edit List of courses
 $result = $DB->get_records_sql(
-  'SELECT DISTINCT {course}.id, {course}.fullname,
-  {course}.shortname 
-  FROM {course}
+  'SELECT DISTINCT a.id, a.fullname,
+  a.shortname 
+  FROM {course} a
   ');
 
 ?>
@@ -142,6 +142,8 @@ $separate2 = explode('_',$_GET['Save']);
             $key2 = $key."_";
             // if short and path has been changed
             if((empty($_GET[$key]) != true && empty($_GET[$key2]) != true  && $key != "Save" )){
+              echo $key." $_GET[$key]".$key2." $_GET[$key2]";
+              $insert = new stdClass();
               $insert->short = $_GET[$key];
               $insert->course_id = $separate2[1];
               $insert->path =  $_GET[$key2];
