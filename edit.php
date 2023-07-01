@@ -142,7 +142,6 @@ $separate2 = explode('_',$_GET['Save']);
             $key2 = $key."_";
             // if short and path has been changed
             if((empty($_GET[$key]) != true && empty($_GET[$key2]) != true  && $key != "Save" )){
-              echo $key." $_GET[$key]".$key2." $_GET[$key2]";
               $insert = new stdClass();
               $insert->short = $_GET[$key];
               $insert->course_id = $separate2[1];
